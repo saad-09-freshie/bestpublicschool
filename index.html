@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0F1E3C">
+<title>Best Public School – Bengaluru's Premier School</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS & RESET
+═══════════════════════════════════════ */
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-dark: #9B7A30;
+  --navy: #0F1E3C;
+  --navy-mid: #1A2F55;
+  --navy-light: #253E6E;
+  --cream: #FAF7F0;
+  --cream-dark: #F0EAD8;
+  --white: #FFFFFF;
+  --text-dark: #1A1A2E;
+  --text-mid: #4A4A6A;
+  --text-light: #7A7A9A;
+  --nav-h: 60px;
+  --bottom-nav-h: 64px;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream); color:var(--text-dark);
+  overflow-x:hidden;
+  padding-bottom:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+}
+a { text-decoration:none; }
+
+/* ═══════════════════════════════════════
+   TOP NAV
+═══════════════════════════════════════ */
+nav.topnav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  height:var(--nav-h);
+  background:rgba(15,30,60,0.97);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1rem;
+  border-bottom:1px solid rgba(201,168,76,0.25);
+}
+.nav-logo { display:flex; align-items:center; gap:0.6rem; }
+.nav-logo-icon {
+  width:34px; height:34px; background:var(--gold); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;
+}
+.nav-logo-text { color:var(--white); font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; line-height:1.15; }
+.nav-logo-sub  { color:var(--gold-light); font-size:0.58rem; letter-spacing:1.5px; text-transform:uppercase; }
+
+.nav-links-desk { display:none; gap:1.5rem; list-style:none; }
+.nav-links-desk a { color:rgba(255,255,255,0.8); font-size:0.82rem; transition:color .2s; }
+.nav-links-desk a:hover { color:var(--gold-light); }
+
+.nav-cta-desk {
+  display:none; background:var(--gold); color:var(--navy);
+  padding:0.42rem 1.05rem; border-radius:6px;
+  font-weight:700; font-size:0.8rem; white-space:nowrap;
+}
+.nav-cta-desk:hover { background:var(--gold-light); }
+
+/* hamburger */
+.ham {
+  display:flex; flex-direction:column; justify-content:center;
+  gap:5px; width:38px; height:38px; background:transparent;
+  border:none; cursor:pointer; padding:7px; border-radius:8px;
+}
+.ham span { display:block; height:2px; background:var(--gold-light); border-radius:2px; transition:all .3s; transform-origin:center; }
+.ham.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.ham.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* drawer */
+.drawer {
+  position:fixed; top:var(--nav-h); left:0; right:0; z-index:998;
+  background:rgba(9,18,42,0.98);
+  backdrop-filter:blur(14px);
+  padding:0.75rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+  transform:translateY(-110%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  border-bottom:1px solid rgba(201,168,76,0.18);
+}
+.drawer.open { transform:translateY(0); }
+.drawer ul { list-style:none; }
+.drawer ul li { border-bottom:1px solid rgba(255,255,255,0.05); }
+.drawer ul li a { display:block; padding:0.9rem 0; color:rgba(255,255,255,0.82); font-size:1rem; font-weight:500; }
+.drawer ul li a:hover { color:var(--gold-light); }
+.drawer .dcta {
+  display:block; margin-top:1rem; background:var(--gold); color:var(--navy);
+  text-align:center; padding:0.8rem; border-radius:10px; font-weight:700; font-size:0.97rem;
+}
+
+/* ═══════════════════════════════════════
+   BOTTOM NAV — app-style
+═══════════════════════════════════════ */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:997;
+  height:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+  background:rgba(9,18,42,0.98);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(201,168,76,0.2);
+  display:flex; align-items:stretch;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bottom-nav a {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:3px;
+  color:rgba(255,255,255,0.4); font-size:0.58rem; letter-spacing:0.5px;
+  text-transform:uppercase; font-weight:600; padding:8px 2px 4px;
+  transition:color .2s;
+}
+.bottom-nav a .bni { font-size:1.25rem; line-height:1; }
+.bottom-nav a.active,
+.bottom-nav a:hover { color:var(--gold-light); }
+.bottom-nav .bn-call {
+  position:relative; color:var(--gold);
+}
+.bottom-nav .bn-call .call-bubble {
+  background:var(--gold); border-radius:50%;
+  width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; margin-top:-16px;
+  box-shadow:0 4px 16px rgba(201,168,76,.45);
+  border:3px solid var(--cream);
+  transition:transform .2s, box-shadow .2s;
+}
+.bottom-nav .bn-call:active .call-bubble { transform:scale(0.94); }
+.bottom-nav .bn-call .bn-label { color:var(--gold); font-size:0.58rem; font-weight:700; }
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:none} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:none} }
+@keyframes pulse {
+  0%,100%{box-shadow:0 4px 16px rgba(201,168,76,.45)}
+  50%    {box-shadow:0 4px 24px rgba(201,168,76,.7),0 0 0 6px rgba(201,168,76,.12)}
+}
+
+/* ═══════════════════════════════════════
+   BASE LAYOUT
+═══════════════════════════════════════ */
+section { padding:3rem 1rem; }
+.container { max-width:1100px; margin:0 auto; }
+
+.section-label {
+  display:inline-block; color:var(--gold-dark);
+  font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; font-weight:600;
+  margin-bottom:0.6rem;
+}
+.section-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,5vw,3rem);
+  font-weight:700; line-height:1.15; color:var(--navy); margin-bottom:0.75rem;
+}
+.section-title span { color:var(--gold-dark); }
+.section-sub { color:var(--text-mid); font-size:0.95rem; line-height:1.72; }
+
+.btn-primary {
+  display:inline-flex; align-items:center; justify-content:center; gap:0.45rem;
+  background:var(--gold); color:var(--navy);
+  padding:0.82rem 1.6rem; border-radius:10px;
+  font-weight:700; font-size:0.93rem; min-height:48px;
+  touch-action:manipulation; transition:all .25s;
+}
+.btn-primary:active { transform:scale(.97); }
+.btn-primary:hover  { background:var(--gold-light); box-shadow:0 6px 18px rgba(201,168,76,.35); }
+.btn-secondary {
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1.5px solid rgba(201,168,76,.5); color:var(--gold-light);
+  padding:0.82rem 1.6rem; border-radius:10px;
+  font-weight:500; font-size:0.93rem; min-height:48px;
+  touch-action:manipulation; transition:all .25s;
+}
+.btn-secondary:hover { border-color:var(--gold); background:rgba(201,168,76,.08); }
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  min-height:100svh;
+  background:linear-gradient(145deg,var(--navy) 0%,var(--navy-mid) 55%,#0D2748 100%);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; position:relative; overflow:hidden;
+  padding-top:var(--nav-h);
+}
+.hero-bg1 {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    radial-gradient(circle at 22% 50%,rgba(201,168,76,.09) 0%,transparent 50%),
+    radial-gradient(circle at 80% 15%,rgba(201,168,76,.07) 0%,transparent 42%),
+    radial-gradient(circle at 55% 85%,rgba(201,168,76,.05) 0%,transparent 36%);
+}
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);
+  background-size:50px 50px;
+}
+.hero-content { position:relative; z-index:2; max-width:850px; padding:2rem 1rem; width:100%; }
+.hero-badge {
+  display:inline-block;
+  background:rgba(201,168,76,.15); border:1px solid rgba(201,168,76,.4);
+  color:var(--gold-light); padding:0.38rem 1rem; border-radius:50px;
+  font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase;
+  margin-bottom:1.2rem;
+  animation:fadeDown .8s ease forwards;
+}
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,8vw,4.5rem);
+  font-weight:900; color:var(--white); line-height:1.1; margin-bottom:1rem;
+  animation:fadeUp .9s ease .1s both;
+}
+.hero h1 span { color:var(--gold); }
+.hero-desc {
+  font-size:clamp(0.88rem,2.4vw,1.05rem);
+  color:rgba(255,255,255,.72);
+  max-width:560px; margin:0 auto 1.8rem; line-height:1.75;
+  animation:fadeUp .9s ease .2s both;
+}
+.hero-btns {
+  display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;
+  animation:fadeUp .9s ease .3s both;
+}
+.hero-btns .btn-primary,
+.hero-btns .btn-secondary { width:100%; max-width:300px; }
+
+.hero-stats {
+  display:grid; grid-template-columns:1fr 1fr; gap:0.6rem;
+  margin-top:1.8rem;
+  animation:fadeUp .9s ease .4s both;
+}
+.hero-stat {
+  background:rgba(255,255,255,.06); border:1px solid rgba(201,168,76,.18);
+  border-radius:12px; padding:0.9rem 0.5rem; text-align:center;
+}
+.hero-stat-num { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:700; color:var(--gold); }
+.hero-stat-label { color:rgba(255,255,255,.5); font-size:0.68rem; letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+
+/* ═══════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════ */
+.about { background:var(--white); }
+.about-grid { display:flex; flex-direction:column; gap:1.8rem; }
+.about-visual {
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
+  border-radius:16px; padding:1.5rem;
+  display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;
+  position:relative; overflow:hidden;
+}
+.about-visual::after {
+  content:'☀️'; position:absolute; top:-16px; right:-10px;
+  font-size:7rem; opacity:.055; pointer-events:none;
+}
+.stat-card {
+  background:rgba(255,255,255,.08); border:1px solid rgba(201,168,76,.2);
+  border-radius:10px; padding:1rem; text-align:center;
+}
+.stat-card-num { font-family:'Playfair Display',serif; font-size:1.65rem; color:var(--gold); font-weight:700; }
+.stat-card-label { color:rgba(255,255,255,.6); font-size:0.7rem; margin-top:3px; }
+.about-badges { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1.4rem; }
+.badge {
+  background:var(--cream); border:1px solid var(--cream-dark);
+  color:var(--navy-mid); padding:0.32rem 0.75rem; border-radius:50px;
+  font-size:0.77rem; font-weight:500;
+}
+
+/* ═══════════════════════════════════════
+   MISSION
+═══════════════════════════════════════ */
+.mission { background:var(--cream); }
+.mission-grid { display:flex; flex-direction:column; gap:1rem; margin-top:1.8rem; }
+.mission-card {
+  background:var(--white); border-radius:16px; padding:1.8rem;
+  border:1px solid var(--cream-dark); position:relative; overflow:hidden;
+}
+.mission-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+}
+.mission-num { font-family:'Playfair Display',serif; font-size:2.8rem; font-weight:900; color:var(--cream-dark); line-height:1; margin-bottom:0.5rem; }
+.mission-icon { font-size:1.75rem; margin-bottom:0.5rem; }
+.mission-card h3 { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--navy); margin-bottom:0.7rem; }
+.mission-card p { color:var(--text-mid); line-height:1.72; font-size:0.92rem; }
+.mission-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:1rem; }
+.mission-tag {
+  background:var(--cream); color:var(--gold-dark);
+  padding:0.25rem 0.65rem; border-radius:4px;
+  font-size:0.7rem; font-weight:600; border:1px solid var(--cream-dark);
+}
+.values-row { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:2rem; }
+.value-pill {
+  background:var(--navy); color:var(--gold-light);
+  padding:0.48rem 1.05rem; border-radius:50px;
+  font-size:0.82rem; font-weight:500;
+}
+
+/* ═══════════════════════════════════════
+   LEADERSHIP
+═══════════════════════════════════════ */
+.leadership { background:var(--navy); }
+.leadership .section-title { color:var(--white); }
+.leadership .section-label { color:var(--gold); }
+.leadership .section-sub { color:rgba(255,255,255,.6); }
+.leaders-grid { display:flex; flex-direction:column; gap:1rem; margin-top:1.8rem; }
+.leader-card {
+  background:rgba(255,255,255,.05); border:1px solid rgba(201,168,76,.2);
+  border-radius:14px; padding:1.5rem;
+  display:flex; gap:1rem; align-items:flex-start;
+  transition:background .3s;
+}
+.leader-card:active { background:rgba(201,168,76,.08); }
+.leader-avatar {
+  width:56px; height:56px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.6rem; border:2px solid rgba(201,168,76,.3);
+}
+.leader-info { flex:1; min-width:0; }
+.leader-card h3 { color:var(--white); font-family:'Playfair Display',serif; font-size:1.05rem; margin-bottom:3px; }
+.leader-role { color:var(--gold); font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:0.6rem; }
+.leader-card p { color:rgba(255,255,255,.55); font-size:0.86rem; line-height:1.6; }
+.leader-tags { display:flex; gap:0.35rem; flex-wrap:wrap; margin-top:0.6rem; }
+.leader-tag {
+  background:rgba(201,168,76,.1); color:var(--gold-light);
+  padding:0.2rem 0.5rem; border-radius:4px; font-size:0.68rem;
+}
+
+/* ═══════════════════════════════════════
+   TIMELINE
+═══════════════════════════════════════ */
+.journey { background:var(--cream); }
+.timeline { margin-top:1.8rem; position:relative; padding-left:2.4rem; }
+.timeline::before {
+  content:''; position:absolute; left:10px; top:0; bottom:0; width:2px;
+  background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,.1));
+}
+.timeline-item { padding-bottom:1.8rem; position:relative; }
+.timeline-dot {
+  position:absolute; left:-2.4rem; top:2px;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--gold); border:3px solid var(--cream);
+  box-shadow:0 0 0 3px rgba(201,168,76,.22);
+}
+.timeline-card {
+  background:var(--white); border-radius:12px; padding:1.25rem;
+  border:1px solid var(--cream-dark); border-left:4px solid var(--gold);
+}
+.timeline-emoji { font-size:1.3rem; margin-bottom:0.35rem; }
+.timeline-phase { color:var(--gold-dark); font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; }
+.timeline-card h3 { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--navy); margin:.25rem 0 .45rem; }
+.timeline-card p { color:var(--text-mid); font-size:0.88rem; line-height:1.65; }
+
+/* ═══════════════════════════════════════
+   FACILITIES
+═══════════════════════════════════════ */
+.facilities { background:var(--white); }
+.facilities-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0.75rem; margin-top:1.8rem;
+}
+.facility-card {
+  border:1px solid var(--cream-dark); border-radius:12px;
+  padding:1.25rem; background:var(--cream);
+  touch-action:manipulation; transition:all .2s;
+}
+.facility-card:active { border-color:var(--gold); background:var(--white); }
+.facility-icon { font-size:1.7rem; margin-bottom:0.6rem; }
+.facility-card h3 { color:var(--navy); font-weight:600; margin-bottom:0.35rem; font-size:0.9rem; }
+.facility-card p { color:var(--text-mid); font-size:0.8rem; line-height:1.55; }
+
+/* ═══════════════════════════════════════
+   REVIEWS — horizontal snap scroll on mobile
+═══════════════════════════════════════ */
+.reviews { background:var(--cream); overflow:hidden; }
+.reviews-track {
+  display:flex; gap:1rem;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory; scrollbar-width:none;
+  padding:1.5rem 1rem 1rem;
+  margin:0 -1rem;
+}
+.reviews-track::-webkit-scrollbar { display:none; }
+.review-card {
+  flex-shrink:0; width:calc(82vw - 1rem); max-width:360px;
+  scroll-snap-align:start;
+  background:var(--white); border-radius:14px; padding:1.6rem;
+  border:1px solid var(--cream-dark);
+}
+.review-stars { color:var(--gold); margin-bottom:0.9rem; }
+.review-card p { color:var(--text-mid); font-size:0.9rem; line-height:1.7; font-style:italic; margin-bottom:1.2rem; }
+.review-author { display:flex; align-items:center; gap:0.7rem; }
+.review-avatar {
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  display:flex; align-items:center; justify-content:center; font-size:1rem;
+}
+.review-name { font-weight:600; color:var(--navy); font-size:0.86rem; }
+.review-role { color:var(--text-light); font-size:0.73rem; }
+/* scroll dots */
+.scroll-dots { display:flex; gap:6px; justify-content:center; margin-top:0.6rem; }
+.sdot { width:6px; height:6px; border-radius:50%; background:var(--cream-dark); transition:all .25s; }
+.sdot.active { background:var(--gold); width:18px; border-radius:3px; }
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+.contact { background:var(--navy); }
+.contact .section-title { color:var(--white); }
+.contact .section-label { color:var(--gold); }
+.contact .section-sub { color:rgba(255,255,255,.6); }
+.contact-grid { display:flex; flex-direction:column; gap:1.8rem; margin-top:1.8rem; }
+.contact-info-cards { display:flex; flex-direction:column; gap:0.75rem; }
+.contact-card {
+  background:rgba(255,255,255,.05); border:1px solid rgba(201,168,76,.2);
+  border-radius:12px; padding:1rem;
+  display:flex; align-items:flex-start; gap:0.9rem;
+}
+.cc-icon {
+  width:40px; height:40px; border-radius:8px; flex-shrink:0;
+  background:rgba(201,168,76,.12); border:1px solid rgba(201,168,76,.22);
+  display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+}
+.cc-label { color:var(--gold); font-size:0.65rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+.cc-val { color:var(--white); font-size:0.9rem; margin-top:3px; line-height:1.5; }
+
+.enroll-box {
+  background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(201,168,76,.04));
+  border:1px solid rgba(201,168,76,.3); border-radius:20px; padding:1.8rem;
+}
+.enroll-box h3 { font-family:'Playfair Display',serif; font-size:1.55rem; color:var(--white); margin-bottom:0.7rem; }
+.enroll-box p { color:rgba(255,255,255,.6); line-height:1.7; margin-bottom:1.6rem; font-size:0.91rem; }
+.enroll-box .btn-primary { width:100%; margin-bottom:1rem; }
+.classes-info {
+  background:rgba(255,255,255,.05); border-radius:8px;
+  padding:0.75rem 1rem;
+  color:rgba(255,255,255,.5); font-size:0.8rem; text-align:center; line-height:1.65;
+}
+.classes-info strong { color:var(--gold-light); }
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  background:#070D1C;
+  padding:2.5rem 1rem calc(calc(var(--bottom-nav-h) + env(safe-area-inset-bottom)) + 1rem);
+  border-top:1px solid rgba(201,168,76,.1);
+}
+.foot-inner { max-width:1100px; margin:0 auto; }
+.foot-brand { margin-bottom:1.8rem; }
+.foot-logo-row { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+.foot-logo-icon { width:32px; height:32px; background:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.9rem; }
+.foot-logo-name { color:var(--white); font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; }
+.foot-logo-sub { color:var(--gold); font-size:0.57rem; letter-spacing:2px; text-transform:uppercase; }
+.foot-brand p { color:rgba(255,255,255,.4); font-size:0.83rem; line-height:1.7; }
+.foot-cols { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+.foot-col h4 { color:var(--gold-light); font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:0.9rem; }
+.foot-col ul { list-style:none; }
+.foot-col ul li { margin-bottom:0.45rem; }
+.foot-col ul li a { color:rgba(255,255,255,.4); font-size:0.83rem; display:block; padding:2px 0; }
+.foot-col ul li a:hover { color:var(--gold-light); }
+.foot-bottom {
+  border-top:1px solid rgba(255,255,255,.06); padding-top:1.4rem; margin-top:1.8rem;
+  text-align:center; color:rgba(255,255,255,.22); font-size:0.73rem; line-height:1.7;
+}
+
+/* ═══════════════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════════════ */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:997;
+  height:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+  background:rgba(9,18,42,0.98);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(201,168,76,.2);
+  display:flex; align-items:stretch;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bottom-nav a {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:3px;
+  color:rgba(255,255,255,.4); font-size:0.57rem; letter-spacing:0.5px;
+  text-transform:uppercase; font-weight:600; padding:8px 2px 4px;
+  transition:color .2s;
+}
+.bottom-nav a .bni { font-size:1.2rem; line-height:1; }
+.bottom-nav a.active,.bottom-nav a:hover { color:var(--gold-light); }
+.bottom-nav .bn-call { color:var(--gold); }
+.bottom-nav .bn-call .call-bubble {
+  background:var(--gold); border-radius:50%;
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; margin-top:-14px;
+  box-shadow:0 3px 14px rgba(201,168,76,.45);
+  border:3px solid var(--cream);
+  animation:pulse 2.5s infinite;
+}
+.bottom-nav .bn-call .bn-lbl { color:var(--gold); }
+
+/* ═══════════════════════════════════════
+   TABLET  640+
+═══════════════════════════════════════ */
+@media(min-width:640px){
+  section { padding:4rem 1.5rem; }
+  nav.topnav { padding:0 1.5rem; }
+  .hero-btns .btn-primary,
+  .hero-btns .btn-secondary { width:auto; }
+  .hero-stats { grid-template-columns:repeat(4,1fr); }
+  .facilities-grid { grid-template-columns:repeat(3,1fr); }
+  .review-card { width:320px; }
+  footer { padding:3rem 1.5rem calc(calc(var(--bottom-nav-h) + env(safe-area-inset-bottom)) + 1rem); }
+}
+
+/* ═══════════════════════════════════════
+   DESKTOP  900+
+═══════════════════════════════════════ */
+@media(min-width:900px){
+  body { padding-bottom:0; }
+  nav.topnav { padding:0 2rem; }
+  .nav-links-desk { display:flex; }
+  .nav-cta-desk { display:inline-block; }
+  .ham { display:none; }
+  .bottom-nav { display:none; }
+  footer { padding-bottom:2.5rem; }
+  section { padding:5rem 2rem; }
+
+  /* hero stats no card bg */
+  .hero-stat { background:none; border:none; }
+  .hero-stats { grid-template-columns:repeat(4,1fr); gap:2.5rem; }
+
+  /* about */
+  .about-grid { flex-direction:row; gap:4rem; align-items:center; }
+  .about-grid > div:first-child { flex:1; }
+  .about-visual { flex:1; }
+
+  /* mission */
+  .mission-grid { flex-direction:row; }
+
+  /* leadership */
+  .leaders-grid { flex-direction:row; }
+  .leader-card { flex-direction:column; align-items:center; text-align:center; }
+  .leader-info { text-align:center; }
+  .leader-tags { justify-content:center; }
+
+  /* reviews — grid, no scroll */
+  .reviews-track {
+    overflow-x:visible; display:grid; grid-template-columns:repeat(3,1fr);
+    scroll-snap-type:none; padding:1.5rem 0 0; margin:0; gap:1.5rem;
+  }
+  .review-card { width:auto; max-width:none; }
+  .scroll-dots { display:none; }
+
+  /* contact */
+  .contact-grid { flex-direction:row; align-items:flex-start; }
+  .contact-info-cards,.enroll-box { flex:1; }
+
+  /* footer */
+  .foot-inner { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:3rem; align-items:start; }
+  .foot-brand { margin-bottom:0; }
+  .foot-cols { display:contents; }
+}
+
+@media(min-width:1200px){
+  nav.topnav { padding:0 3rem; }
+  section { padding:5rem 3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav" id="home">
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">☀️</div>
+    <div>
+      <div class="nav-logo-text">Best Public School</div>
+      <div class="nav-logo-sub">Bengaluru · Richards Town</div>
+    </div>
+  </a>
+  <ul class="nav-links-desk">
+    <li><a href="#about">About</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#facilities">Facilities</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:07406155711" class="nav-cta-desk">📞 Enroll Now</a>
+  <button class="ham" id="ham" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <ul>
+    <li><a href="#about"      class="dl">About Us</a></li>
+    <li><a href="#mission"    class="dl">Mission &amp; Vision</a></li>
+    <li><a href="#leadership" class="dl">Leadership</a></li>
+    <li><a href="#journey"    class="dl">Our Journey</a></li>
+    <li><a href="#facilities" class="dl">Facilities</a></li>
+    <li><a href="#reviews"    class="dl">Reviews</a></li>
+    <li><a href="#contact"    class="dl">Contact</a></li>
+  </ul>
+  <a href="tel:07406155711" class="dcta">📞 Call to Enroll — 074061 55711</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg1"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⭐ Bengaluru's Best Public School</div>
+    <h1>Where Young Minds<br><span>Shine &amp; Flourish</span></h1>
+    <p class="hero-desc">Richards Town, St. Thomas Town — nurturing every child from Nursery through Grade 10, blending academic excellence with holistic growth in a warm, trusted community.</p>
+    <div class="hero-btns">
+      <a href="tel:07406155711" class="btn-primary">📞 Call to Enroll — 074061 55711</a>
+      <a href="#about" class="btn-secondary">Discover Our School →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">Students</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">30+</div><div class="hero-stat-label">Educators</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5 ★</div><div class="hero-stat-label">Rated</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">44+</div><div class="hero-stat-label">Reviews</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">More Than a School —<br><span>A Community of Excellence</span></h2>
+        <p class="section-sub" style="margin-bottom:.9rem;">Located in Richards Town, St. Thomas Town, Bengaluru, Best Public School is renowned as the best public school in the area — delivering high-quality education from Nursery, LKG, UKG through to Grade 10.</p>
+        <p class="section-sub">Our commitment to academic excellence and holistic development makes us one of the most sought-after schools in Bengaluru, nurturing young minds with a balanced curriculum and experienced faculty.</p>
+        <div class="about-badges">
+          <span class="badge">🎓 Nursery to Grade 10</span>
+          <span class="badge">👩‍🏫 Expert Faculty</span>
+          <span class="badge">🌟 Holistic Growth</span>
+          <span class="badge">🤝 Trusted Community</span>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="stat-card"><div class="stat-card-num">5★</div><div class="stat-card-label">Google Rating</div></div>
+        <div class="stat-card"><div class="stat-card-num">44+</div><div class="stat-card-label">Justdial Reviews</div></div>
+        <div class="stat-card"><div class="stat-card-num">500+</div><div class="stat-card-label">Happy Students</div></div>
+        <div class="stat-card"><div class="stat-card-num">5★</div><div class="stat-card-label">Facebook Rated</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="container">
+    <div class="section-label">Our Purpose</div>
+    <h2 class="section-title">Mission &amp; <span>Vision</span></h2>
+    <p class="section-sub">Guided by values that shape not just scholars, but responsible citizens and compassionate human beings.</p>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="mission-num">01</div>
+        <div class="mission-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To deliver high-quality, inclusive education that empowers every student with the knowledge, skills, and values needed to thrive in a rapidly changing world. We foster creativity, critical thinking, and moral character.</p>
+        <div class="mission-tags"><span class="mission-tag">Excellence</span><span class="mission-tag">Inclusivity</span><span class="mission-tag">Empowerment</span></div>
+      </div>
+      <div class="mission-card">
+        <div class="mission-num">02</div>
+        <div class="mission-icon">🔭</div>
+        <h3>Our Vision</h3>
+        <p>To be Bengaluru's most trusted and transformative educational institution — a school where every child's unique potential is recognized, cultivated, and celebrated, producing intellectually curious and emotionally intelligent graduates.</p>
+        <div class="mission-tags"><span class="mission-tag">Innovation</span><span class="mission-tag">Leadership</span><span class="mission-tag">Compassion</span></div>
+      </div>
+    </div>
+    <div class="values-row">
+      <span class="value-pill">Integrity</span>
+      <span class="value-pill">Respect</span>
+      <span class="value-pill">Perseverance</span>
+      <span class="value-pill">Curiosity</span>
+      <span class="value-pill">Community</span>
+      <span class="value-pill">Service</span>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="leadership" id="leadership">
+  <div class="container">
+    <div class="section-label">Our Leadership</div>
+    <h2 class="section-title">The Pillars Behind <span style="color:var(--gold)">the School</span></h2>
+    <p class="section-sub">Dedicated professionals committed to educational excellence and the holistic development of every student.</p>
+    <div class="leaders-grid">
+      <div class="leader-card">
+        <div class="leader-avatar">👨‍💼</div>
+        <div class="leader-info">
+          <h3>School Chairman</h3>
+          <div class="leader-role">Founder &amp; Visionary</div>
+          <p>The founding visionary driven by a deep commitment to providing accessible, quality education to the families of Richards Town and beyond.</p>
+          <div class="leader-tags"><span class="leader-tag">Founder</span><span class="leader-tag">Visionary</span></div>
+        </div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-avatar">👩‍🎓</div>
+        <div class="leader-info">
+          <h3>Principal</h3>
+          <div class="leader-role">Academic Head</div>
+          <p>Leading the academic vision with years of experience, ensuring every student receives the guidance needed to achieve their highest potential.</p>
+          <div class="leader-tags"><span class="leader-tag">Academic</span><span class="leader-tag">Leadership</span></div>
+        </div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-avatar">👨‍🏫</div>
+        <div class="leader-info">
+          <h3>Vice Principal</h3>
+          <div class="leader-role">Student Affairs</div>
+          <p>Overseeing student welfare, co-curricular activities, and maintaining a positive learning environment that nurtures confidence in every child.</p>
+          <div class="leader-tags"><span class="leader-tag">Welfare</span><span class="leader-tag">Activities</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey" id="journey">
+  <div class="container">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Journey &amp; <span>Milestones</span></h2>
+    <p class="section-sub">A story of growth, community trust, and an unwavering commitment to shaping Bengaluru's next generation.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-emoji">🌱</div>
+          <div class="timeline-phase">Foundation</div>
+          <h3>School Established</h3>
+          <p>Best Public School opens its doors in Richards Town — beginning with Nursery, LKG, and UKG with a vision to become the best public school in Bengaluru.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-emoji">📚</div>
+          <div class="timeline-phase">Growth</div>
+          <h3>Primary Classes Added</h3>
+          <p>Growing community demand led to the addition of primary grades, establishing a strong academic foundation for hundreds of young learners.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-emoji">🏫</div>
+          <div class="timeline-phase">Expansion</div>
+          <h3>High School Department</h3>
+          <p>The school expands to include higher grades — completing the full journey from early childhood through Grade 10 under one roof.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-emoji">🏆</div>
+          <div class="timeline-phase">Recognition</div>
+          <h3>Bengaluru's Best Public School</h3>
+          <p>Achieving 5-star ratings on Google, Justdial, and Facebook — recognised and trusted by hundreds of families across Bengaluru.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-emoji">✨</div>
+          <div class="timeline-phase">Today</div>
+          <h3>Thriving &amp; Growing</h3>
+          <p>Admissions open for 2025–26! Serving the community with dedicated faculty, modern facilities, and holistic development. Call 074061 55711 to enroll today.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities" id="facilities">
+  <div class="container">
+    <div class="section-label">Campus Life</div>
+    <h2 class="section-title">Facilities &amp; <span>Amenities</span></h2>
+    <p class="section-sub">A well-equipped campus supporting every aspect of student learning, health, and growth.</p>
+    <div class="facilities-grid">
+      <div class="facility-card"><div class="facility-icon">📖</div><h3>Library</h3><p>Rich collection fostering reading habits and lifelong learning.</p></div>
+      <div class="facility-card"><div class="facility-icon">⚽</div><h3>Sports Ground</h3><p>Spacious areas promoting fitness, teamwork &amp; sportsmanship.</p></div>
+      <div class="facility-card"><div class="facility-icon">🔬</div><h3>Science Lab</h3><p>Hands-on experiments fostering curiosity in every student.</p></div>
+      <div class="facility-card"><div class="facility-icon">💻</div><h3>Computer Lab</h3><p>Modern IT facilities for the digital world.</p></div>
+      <div class="facility-card"><div class="facility-icon">🎨</div><h3>Art &amp; Activity</h3><p>Spaces for art, craft, music &amp; cultural activities.</p></div>
+      <div class="facility-card"><div class="facility-icon">🚌</div><h3>School Transport</h3><p>Safe, reliable transport across Bengaluru.</p></div>
+      <div class="facility-card"><div class="facility-icon">🏥</div><h3>Health &amp; Safety</h3><p>First-aid &amp; safety-first campus environment.</p></div>
+      <div class="facility-card"><div class="facility-icon">🍱</div><h3>Canteen</h3><p>Healthy, nutritious options throughout the day.</p></div>
+      <div class="facility-card"><div class="facility-icon">🎭</div><h3>Auditorium</h3><p>Multipurpose hall for events &amp; celebrations.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-label">Parent Voices</div>
+    <h2 class="section-title">What Families <span>Say</span></h2>
+    <p class="section-sub">Hundreds of families in Bengaluru trust us with their children's education.</p>
+  </div>
+  <div class="reviews-track" id="rtrack">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p>"An incredible school that truly cares about every child. My daughter has blossomed academically and socially. The teachers are attentive, kind, and highly skilled."</p>
+      <div class="review-author"><div class="review-avatar">👩</div><div><div class="review-name">Fatima R.</div><div class="review-role">Parent, Grade 5</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p>"Best decision we made was enrolling our son here from LKG. The curriculum is balanced and faculty genuinely invest in each child's growth."</p>
+      <div class="review-author"><div class="review-avatar">👨</div><div><div class="review-name">Mohammed A.</div><div class="review-role">Parent, Grade 3</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p>"Truly stands out as the best public school in Bengaluru. My children are excited to go every day — that says everything. Highly recommended!"</p>
+      <div class="review-author"><div class="review-avatar">👩</div><div><div class="review-name">Priya S.</div><div class="review-role">Parent, Nursery &amp; Grade 2</div></div></div>
+    </div>
+  </div>
+  <div class="scroll-dots" id="sdots">
+    <div class="sdot active"></div>
+    <div class="sdot"></div>
+    <div class="sdot"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Visit Us &amp; <span style="color:var(--gold)">Enroll Today</span></h2>
+    <p class="section-sub">We welcome you to visit and discover why hundreds of families trust us with their children's education.</p>
+    <div class="contact-grid">
+      <div class="contact-info-cards">
+        <div class="contact-card">
+          <div class="cc-icon">📍</div>
+          <div><div class="cc-label">Address</div><div class="cc-val">11/1, Davis Rd, St. Thomas Town,<br>Richards Town, Bengaluru – 560005</div></div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">📞</div>
+          <div><div class="cc-label">Phone</div><div class="cc-val"><a href="tel:07406155711" style="color:var(--gold-light)">074061 55711</a></div></div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">⏰</div>
+          <div><div class="cc-label">School Hours</div><div class="cc-val">Monday – Saturday  |  8:00 AM – 3:00 PM</div></div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-icon">🏫</div>
+          <div><div class="cc-label">Classes Offered</div><div class="cc-val">Nursery · LKG · UKG · Grades 1–10</div></div>
+        </div>
+      </div>
+      <div class="enroll-box">
+        <h3>Admissions Open<br>2025–26</h3>
+        <p>Give your child the best possible start in life at Bengaluru's best public school. Limited seats available — contact us today.</p>
+        <a href="tel:07406155711" class="btn-primary">📞 Call Now: 074061 55711</a>
+        <div class="classes-info"><strong>Classes:</strong> Nursery, LKG, UKG &amp; Grades 1–10<br><strong>Area:</strong> Richards Town, Bengaluru 560005</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="foot-logo-row">
+        <div class="foot-logo-icon">☀️</div>
+        <div><div class="foot-logo-name">Best Public School</div><div class="foot-logo-sub">Bengaluru, Karnataka</div></div>
+      </div>
+      <p>Providing quality education and holistic development from Nursery to Grade 10. Bengaluru's best public school — trusted by hundreds of families in Richards Town.</p>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#mission">Mission &amp; Vision</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#journey">Our Journey</a></li>
+          <li><a href="#facilities">Facilities</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:07406155711">📞 074061 55711</a></li>
+          <li><a href="#">📍 Richards Town</a></li>
+          <li><a href="#">📮 PIN: 560005</a></li>
+          <li><a href="#">🕐 Mon–Sat 8AM–3PM</a></li>
+          <li><a href="#">🏫 Nursery – Grade 10</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    © 2025 Best Public School, Bengaluru. All Rights Reserved.<br>
+    11/1, Davis Rd, St. Thomas Town, Richards Town, Bengaluru – 560005
+  </div>
+</footer>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" aria-label="App navigation">
+  <a href="#home" id="bn-home" class="active">
+    <span class="bni">🏠</span>
+    <span>Home</span>
+  </a>
+  <a href="#about" id="bn-about">
+    <span class="bni">🏫</span>
+    <span>About</span>
+  </a>
+  <a href="tel:07406155711" class="bn-call">
+    <div class="call-bubble">📞</div>
+    <span class="bn-lbl">Call</span>
+  </a>
+  <a href="#facilities" id="bn-fac">
+    <span class="bni">⚽</span>
+    <span>Campus</span>
+  </a>
+  <a href="#contact" id="bn-contact">
+    <span class="bni">📍</span>
+    <span>Contact</span>
+  </a>
+</nav>
+
+<script>
+// Hamburger
+const ham = document.getElementById('ham');
+const drawer = document.getElementById('drawer');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  drawer.classList.toggle('open');
+});
+document.querySelectorAll('.dl,.dcta').forEach(l => {
+  l.addEventListener('click', () => {
+    ham.classList.remove('open');
+    drawer.classList.remove('open');
+  });
+});
+
+// Active bottom nav
+const bnMap = { home:'bn-home', about:'bn-about', mission:'bn-about',
+  leadership:'bn-about', journey:'bn-about',
+  facilities:'bn-fac', reviews:'bn-fac', contact:'bn-contact' };
+const secIds = ['home','about','mission','leadership','journey','facilities','reviews','contact'];
+
+function updateBN() {
+  const mid = window.scrollY + window.innerHeight * 0.45;
+  let cur = 'home';
+  secIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= mid) cur = id;
+  });
+  document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+  const target = document.getElementById(bnMap[cur]);
+  if (target) target.classList.add('active');
+}
+window.addEventListener('scroll', updateBN, { passive: true });
+
+// Review scroll dots
+const rtrack = document.getElementById('rtrack');
+const sdots = document.querySelectorAll('.sdot');
+if (rtrack) {
+  rtrack.addEventListener('scroll', () => {
+    const idx = Math.round(rtrack.scrollLeft / (rtrack.scrollWidth / sdots.length));
+    sdots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, sdots.length - 1)));
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
