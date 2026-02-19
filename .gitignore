@@ -1,0 +1,24 @@
+# Node dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# Environment files
+.env
+
+# Python cache
+__pycache__/
+
+# OneDrive temp files
+~$*
